@@ -33,9 +33,9 @@ export default function Navigation(props) {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <li className="nav-item">
-              <a href="#" className="nav-link">
+            <NavLink to="/" className="nav-link">
                 Home
-              </a>
+                </NavLink>
             </li>
 
             {myClasses ? (

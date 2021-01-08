@@ -5,7 +5,7 @@ import axios from "axios";
 import AFLogoFxn from "./AFLogo";
 import Navigation from "./Header";
 
-const baseUrl = "https://anywhere-fitnessbuild2.herokuapp.com/";
+const baseUrl = "https://anywhere-fitnessbuild2.herokuapp.com";
 
 function Login(props) {
   return (
@@ -16,13 +16,13 @@ function Login(props) {
         <div className="SignUp-Container">
           <Form>
             <div className="form-group">
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="username">Username:</label>
               <Field
                 className="form-control"
-                type="email"
-                name="email"
-                id="email"
-                placeholder="JohnDoe@gmail.com"
+                type="text"
+                name="username"
+                id="username"
+                placeholder="jdoe"
               />
             </div>
             <div className="form-group">
@@ -54,14 +54,14 @@ function Login(props) {
 const LoginWFormik = withFormik({
   mapPropsToValues() {
     return {
-      email: "",
+      username: "",
       password: ""
     };
   },
 
   handleSubmit(values, tools) {
     const payload = {
-      email: values.email,
+      username: values.username,
       password: values.password
     };
 
@@ -69,11 +69,12 @@ const LoginWFormik = withFormik({
       .post(baseUrl + "/api/auth/login", payload)
       .then(response => {
         localStorage.setItem("token", response.data.token);
-        const landingUrl =
-          response.data.user.role === "client"
-            ? "/dashboard/client"
-            : "/dashboard/instructor";
-        tools.props.history.push(landingUrl);
+        // const landingUrl =
+        //   response.data.user.role === "client"
+        //     ? "/dashboard/client"
+        //     : "/dashboard/instructor";
+        // tools.props.history.push(landingUrl);
+        setTimeout(() => {tools.props.history.push('/dashboard/client')}, 1500)
         alert(response.data.message);
       })
       .catch(error => {

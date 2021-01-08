@@ -5,7 +5,7 @@ import axios from "axios";
 import AFLogoFxn from "./AFLogo";
 import Navigation from "./Header";
 
-const baseUrl = "https://bw4-anywhere-fitness.herokuapp.com";
+const baseUrl = "https://anywhere-fitnessbuild2.herokuapp.com/";
 
 function SignUp(props) {
   return (
@@ -16,13 +16,13 @@ function SignUp(props) {
         <div className="SignUp-Container">
           <Form>
             <div className="form-group">
-              <label htmlFor="firstname">First Name:</label>
+              <label htmlFor="firstName">First Name:</label>
               <Field
                 className="form-control"
                 type="text"
-                name="firstname"
-                id="firstname"
-                placeholder="Josemaria"
+                name="firstName"
+                id="firstName"
+                placeholder="firstName"
               />
             </div>
             <div className="form-group">
@@ -32,7 +32,27 @@ function SignUp(props) {
                 type="text"
                 name="lastname"
                 id="lastname"
-                placeholder="DaCosta"
+                placeholder="lastName"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="username">Please create a Username:</label>
+              <Field
+                className="form-control"
+                type="text"
+                name="username"
+                id="username"
+                placeholder="jdoe"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Please set a Password:</label>
+              <Field
+                className="form-control"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="password"
               />
             </div>
             <div className="form-group">
@@ -42,20 +62,11 @@ function SignUp(props) {
                 type="email"
                 name="email"
                 id="email"
-                placeholder="JonDoe@gmail.com"
+                placeholder="JohnDoe@gmail.com"
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="password">Password:</label>
-              <Field
-                className="form-control"
-                type="password"
-                name="password"
-                id="password"
-                placeholder="$PAssword124"
-              />
-            </div>
-            <div className="form-group">
+            
+            {/* <div className="form-group">
               <label htmlFor="authCode">InstructorCode:</label>
               <Field
                 type="number"
@@ -64,7 +75,7 @@ function SignUp(props) {
                 placeholder="(Instructors Only)"
                 className="form-control"
               />
-            </div>
+            </div> */}
             <div className="text-right">
               <Button type="submit" className="btn" variant="dark">
                 Submit
@@ -80,25 +91,27 @@ function SignUp(props) {
 const SignUpWFormik = withFormik({
   mapPropsToValues() {
     return {
-      firstname: "",
+      firstName: "",
       lastname: "",
+      username: "",
       email: "",
       password: "",
-      authCode: ""
+      // authCode: ""
     };
   },
 
   handleSubmit(values, tools) {
     const payload = {
-      firstName: values.firstname,
-      lastName: values.lastname,
+      firstName: values.firstName,
+      lastname: values.lastname,
+      username: values.username,
       email: values.email,
       password: values.password,
-      role: values.authCode === 777 ? "instructor" : "client"
+      // role: values.authCode === 777 ? "instructor" : "user"
     };
 
     const landingUrl =
-      payload.role === "client" ? "/overview/client" : "overview/instructor";
+      payload.role === "users" ? "/overview/users" : "overview/instructor";
 
     axios
       .post(baseUrl + "/api/auth/register", payload)
