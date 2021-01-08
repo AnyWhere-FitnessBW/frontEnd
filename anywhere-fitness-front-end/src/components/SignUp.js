@@ -5,7 +5,7 @@ import axios from "axios";
 import AFLogoFxn from "./AFLogo";
 import Navigation from "./Header";
 
-const baseUrl = "https://anywhere-fitnessbuild2.herokuapp.com/";
+const baseUrl = "https://anywhere-fitnessbuild2.herokuapp.com";
 
 function SignUp(props) {
   return (
@@ -42,7 +42,7 @@ function SignUp(props) {
                 type="text"
                 name="username"
                 id="username"
-                placeholder="jdoe"
+                placeholder="username"
               />
             </div>
             <div className="form-group">
@@ -111,14 +111,18 @@ const SignUpWFormik = withFormik({
     };
 
     const landingUrl =
-      payload.role === "users" ? "/overview/users" : "overview/instructor";
+      // payload.role === "users" ? "/overview/users" : "overview/instructor";
+      '/overview/users';
+
+  console.log(payload);
 
     axios
       .post(baseUrl + "/api/auth/register", payload)
       .then(response => {
         localStorage.setItem("token", response.data.token);
         tools.props.history.push(landingUrl);
-        alert(response.data.message);
+        alert(response.data.data);
+        console.log(response);
       })
       .catch(error => {
         alert(error);

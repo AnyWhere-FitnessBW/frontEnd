@@ -43,7 +43,7 @@ function App() {
       <PrivateRoute
         component={ClientOverview}
         exact
-        path="/overview/client"
+        path="/overview/users"
       />
 
       <PrivateRoute
